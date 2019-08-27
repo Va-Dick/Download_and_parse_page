@@ -1,19 +1,19 @@
 #include "Downloader.h"
 
 void Downloader::SendGet() {
-	manager = new QNetworkAccessManager(this);					// Инициализируем менеджер
-	reply = manager->get(QNetworkRequest(url));					// Запрашиваем get запрос
+	manager = new QNetworkAccessManager(this);					// Initialize manager
+	reply = manager->get(QNetworkRequest(url));					// Make get request
 	
 	QEventLoop loop;
 	connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));	
-	loop.exec();												// Ждем получение ответа
+	loop.exec();												// Waiting for a response and receiving a page
 
-	GetResponse();												// Считываем полученные данные
+	GetResponse();												// Read the received data
 
-	ParsePage();												// Ищем в txt файле url ссылки
+	ParsePage();												// Search url links
 }
 
-void Downloader::GetResponse() {								// Запись полученных данных в файл
+void Downloader::GetResponse() {								// Writing received data to a file
 	if (reply->error() == QNetworkReply::NoError){
 		QFile file("file.txt");
 		if (file.open(QFile::WriteOnly)){
@@ -32,7 +32,7 @@ void Downloader::GetResponse() {								// Запись полученных данных в файл
 }
 
 void Downloader::ParsePage() {
-	std::regex regular("(http)([|s?]{0,1})(://)([.]*[^ ;\"<)']+)");					//Шаблон регулярных овыражений (для поиска внутренних сылок)
+	std::regex regular("(http)([|s?]{0,1})(://)([.]*[^ ;\"<)']+)");					//Regular Expression Pattern (for finding internal links)
 
 	std::ifstream file("file.txt");
 	std::ofstream url("url.txt");
@@ -44,7 +44,7 @@ void Downloader::ParsePage() {
 	}
 
 	std::string line;
-	while (getline(file, line)) {													//Запись в файл подходящих по шаблону выражений
+	while (getline(file, line)) {													//Writing url links to a file
 		for (auto it = std::sregex_iterator(line.begin(), line.end(), regular);
 			it != std::sregex_iterator();++it){
 			url << it->str() << "\n";

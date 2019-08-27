@@ -16,7 +16,7 @@
 #include <memory>
 #include <exception>
 
-#define _REGEX_MAX_STACK_COUNT 200'000 // Необходим для того, чтобы увеличить максимальный стек
+#define _REGEX_MAX_STACK_COUNT 200'000 // Increase the maximum stack
 #include <regex>
 
 class Downloader : public QObject {
@@ -28,7 +28,7 @@ public:
 	void GetResponse();
 	void ParsePage();
 private:
-	const QUrl url = "http://www.google.com";	//url страница
-	QNetworkAccessManager* manager;				//Менеджер сетевого доступа
+	const QUrl url = "http://www.google.com";	//url link
+	QNetworkAccessManager* manager;				//Network access manager
 	QNetworkReply* reply;
 };
