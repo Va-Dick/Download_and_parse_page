@@ -32,7 +32,7 @@ void Downloader::GetResponse() {								// «апись полученных данных в файл
 }
 
 void Downloader::ParsePage() {
-	std::regex regular("([\\http\\https?]{4,5})(://)(.)*?([\\s\\;\"\\<\\)\'])");	//Ўаблон регул€рных овыражений (дл€ поиска внутренних сылок)
+	std::regex regular("(http)([|s?]{0,1})(://)([.]*[^ ;\"<)']+)");					//Ўаблон регул€рных овыражений (дл€ поиска внутренних сылок)
 
 	std::ifstream file("file.txt");
 	std::ofstream url("url.txt");
