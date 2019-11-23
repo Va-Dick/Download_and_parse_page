@@ -3,11 +3,7 @@
 #include <QCoreApplication>
 #include <memory>
 #include <iostream>
-
-template <typename T>
-void deleter(T* value) {
-	delete value;
-}
+#include <filesystem>
 
 int main(int argc, char* argv[])
 {

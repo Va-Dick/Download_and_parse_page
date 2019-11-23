@@ -6,18 +6,6 @@
 //#include <QSslSocket>
 
 #include <QtNetwork>
-#include <QObject>
-#include <QEventLoop>
-#include <qfile.h>
-
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <memory>
-#include <exception>
-
-#define _REGEX_MAX_STACK_COUNT 200'000 // Increase the maximum stack
-#include <regex>
 
 class Downloader : public QObject {
 	Q_OBJECT
@@ -25,10 +13,10 @@ public:
 	Downloader(const QUrl& url_) : url(url_) {}
 	~Downloader();
 	void SendGet();
-	void GetResponse();
-	void ParsePage();
 private:
+	void GetResponse();
+        void ParsePage();
 	const QUrl url = "http://www.google.com";	//url link
-	QNetworkAccessManager* manager;				//Network access manager
+	QNetworkAccessManager* manager;			//Network access manager
 	QNetworkReply* reply;
 };
